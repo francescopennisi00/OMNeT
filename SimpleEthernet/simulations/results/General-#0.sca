@@ -1,0 +1,71 @@
+version 3
+run General-0-20230427-10:52:01-844
+attr configname General
+attr datetime 20230427-10:52:01
+attr datetimef 20230427-105201
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network SimpleEthernetNet
+attr processid 844
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network SimpleEthernetNet
+config **.host1.app[*].payloadLength 1500B
+config **.host2.app[*].payloadLength 200B
+config **.host1.app[*].period 10ms
+config **.host2.app[*].period 1ms
+config **.host1.app[*].destination "\"SimpleEthernetNet.host2.eth\""
+config **.host2.app[*].destination "\"SimpleEthernetNet.host1.eth\""
+config **.host*.app[*].flow "\"DataTransmission\""
+config **.host1.app[*].burstSize 20
+config **.host1.app[*].startTime 500ms
+
+par SimpleEthernetNet.host1.app[0] typename "\"simpleethernet.TrafficGen\""
+par SimpleEthernetNet.host1.app[0] payloadLength 1500B
+attr unit B
+par SimpleEthernetNet.host1.app[0] period 0.01s
+attr unit s
+par SimpleEthernetNet.host1.app[0] destination "\"SimpleEthernetNet.host2.eth\""
+par SimpleEthernetNet.host1.app[0] startTime 0.5s
+attr unit s
+par SimpleEthernetNet.host1.app[0] burstSize 20
+par SimpleEthernetNet.host1.app[0] flow "\"DataTransmission\""
+scalar SimpleEthernetNet.host1.app[0] SigThroughput:last nan
+attr recordingmode last
+par SimpleEthernetNet.host1.dispatcher typename "\"simpleethernet.ApplicationDispatcher\""
+par SimpleEthernetNet.host1.eth.dll typename "\"simpleethernet.EthernetDataLink\""
+par SimpleEthernetNet.host1.eth.phy typename "\"simpleethernet.EthernetPhy\""
+par SimpleEthernetNet.host1.eth.phy datarate 1e+09bps
+attr unit bps
+par SimpleEthernetNet.host1.eth typename "\"simpleethernet.EthernetInterface\""
+par SimpleEthernetNet.host1 typename "\"simpleethernet.EthernetHost\""
+par SimpleEthernetNet.host1 appCount 1
+par SimpleEthernetNet.host2.app[0] typename "\"simpleethernet.TrafficGen\""
+par SimpleEthernetNet.host2.app[0] payloadLength 200B
+attr unit B
+par SimpleEthernetNet.host2.app[0] period 0.001s
+attr unit s
+par SimpleEthernetNet.host2.app[0] destination "\"SimpleEthernetNet.host1.eth\""
+par SimpleEthernetNet.host2.app[0] startTime -1s
+attr unit s
+par SimpleEthernetNet.host2.app[0] burstSize 1
+par SimpleEthernetNet.host2.app[0] flow "\"DataTransmission\""
+scalar SimpleEthernetNet.host2.app[0] SigThroughput:last 23828755.155583
+attr recordingmode last
+par SimpleEthernetNet.host2.dispatcher typename "\"simpleethernet.ApplicationDispatcher\""
+par SimpleEthernetNet.host2.eth.dll typename "\"simpleethernet.EthernetDataLink\""
+par SimpleEthernetNet.host2.eth.phy typename "\"simpleethernet.EthernetPhy\""
+par SimpleEthernetNet.host2.eth.phy datarate 1e+09bps
+attr unit bps
+par SimpleEthernetNet.host2.eth typename "\"simpleethernet.EthernetInterface\""
+par SimpleEthernetNet.host2 typename "\"simpleethernet.EthernetHost\""
+par SimpleEthernetNet.host2 appCount 1
+par SimpleEthernetNet typename "\"simpleethernet.simulations.SimpleEthernetNet\""
+
