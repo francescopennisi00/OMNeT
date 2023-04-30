@@ -1,3 +1,0 @@
-package simpleethernet;
-
-@license(LGPL);
