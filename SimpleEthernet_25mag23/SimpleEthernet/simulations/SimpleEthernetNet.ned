@@ -22,9 +22,6 @@ network SimpleEthernetNet
         LD2: EthernetHost {
             @display("p=129.21,105.12;i=device/satellite");
         }
-        LD1: EthernetHost {
-            @display("p=129.21,307.695");
-        }
         CM1: EthernetHost {
             @display("p=90.5775,279.86124;i=device/port");
         }
@@ -93,40 +90,43 @@ network SimpleEthernetNet
 
         S1.channelOut --> SW1.channelIn[0];
         SW1.channelOut[0] --> S1.channelIn;
-        CU.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> CU.channelIn;
-        SW1.channelOut[0] --> S2.channelIn;
-        S2.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> LD2.channelIn;
-        LD2.channelOut --> SW1.channelIn[0];
-        CM1.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> CM1.channelIn;
-        US2.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> US2.channelIn;
-        US1.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> US1.channelIn;
-        HU.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> HU.channelIn;
-        LD1.channelOut --> SW1.channelIn[0];
-        SW1.channelOut[0] --> LD1.channelIn;
+        CU.channelOut --> SW1.channelIn[1];
+        SW1.channelOut[1] --> CU.channelIn;
+        SW1.channelOut[2] --> S2.channelIn;
+        S2.channelOut --> SW1.channelIn[2];
+        SW1.channelOut[3] --> LD2.channelIn;
+        LD2.channelOut --> SW1.channelIn[3];
+        CM1.channelOut --> SW1.channelIn[4];
+        SW1.channelOut[4] --> CM1.channelIn;
+        US2.channelOut --> SW1.channelIn[5];
+        SW1.channelOut[5] --> US2.channelIn;
+        US1.channelOut --> SW1.channelIn[6];
+        SW1.channelOut[6] --> US1.channelIn;
+        HU.channelOut --> SW1.channelIn[7];
+        SW1.channelOut[7] --> HU.channelIn;
+        LD1.channelOut --> SW1.channelIn[8];
+        SW1.channelOut[8] --> LD1.channelIn;
         RS1.channelOut --> SW2.channelIn[0];
         SW2.channelOut[0] --> RS1.channelIn;
-        SW2.channelOut[0] --> RS2.channelIn;
-        RS2.channelOut --> SW2.channelIn[0];
-        S3.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> S3.channelIn;
-        SW2.channelOut[0] --> S4.channelIn;
-        S4.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> ME.channelIn;
-        ME.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> RC.channelIn;
-        RC.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> TLM.channelIn;
-        TLM.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> US4.channelIn;
-        US4.channelOut --> SW2.channelIn[0];
-        SW2.channelOut[0] --> US3.channelIn;
-        US3.channelOut --> SW2.channelIn[0];
-        SW1.channelOut[0] --> SW2.channelIn[0];
-        SW2.channelOut[0] --> SW1.channelIn[0];
+        SW2.channelOut[1] --> RS2.channelIn;
+        RS2.channelOut --> SW2.channelIn[1];
+        S3.channelOut --> SW2.channelIn[2];
+        SW2.channelOut[2] --> S3.channelIn;
+        SW2.channelOut[3] --> S4.channelIn;
+        S4.channelOut --> SW2.channelIn[3];
+        SW2.channelOut[4] --> ME.channelIn;
+        ME.channelOut --> SW2.channelIn[4];
+        SW2.channelOut[5] --> RC.channelIn;
+        RC.channelOut --> SW2.channelIn[5];
+        SW2.channelOut[6] --> TLM.channelIn;
+        TLM.channelOut --> SW2.channelIn[6];
+        SW2.channelOut[7] --> US4.channelIn;
+        US4.channelOut --> SW2.channelIn[7];
+        SW2.channelOut[8] --> US3.channelIn;
+        US3.channelOut --> SW2.channelIn[8];
+        SW1.channelOut[9] --> SW2.channelIn[9];
+        SW2.channelOut[9] --> SW1.channelIn[9];
+        MasterNode.channelOut --> SW1.channelIn[10];
+        SW1.channelOut[10] --> MasterNode.channelIn;
+        
 }

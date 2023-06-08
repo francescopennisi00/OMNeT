@@ -45,7 +45,7 @@ void EthernetPhy::handleMessage(cMessage *msg) {
 
     /** Frame arrivata dalla rete */
     double ber = 0;
-    if (dblrand() < 1.0 - pow(1.0 - ber, (double)pkt->getBitLength())) {
+    if (dblrand() < 1.0 - pow(1.0 - ber, (double)frame->getBitLength())) {
         delete frame;
     } else {
         send(frame,"upperLayerOut");

@@ -25,7 +25,9 @@ void PollingMaster::handleMessage(cMessage *msg) {
         if(strcmp(msg->getName(), "PollTimer") == 0) {
             PollingRequest *pr = new PollingRequest("PollingRequest");
             int i = msg->getKind();
+            EV_DEBUG <<"Stampa i: " <<i<<endl;
             FlowTableEntry f = flowTable->getFlows(i);
+            EV_DEBUG <<" Stampa f: " << f.addr <<endl;
             pr->setFlow(f.flow.c_str());
             pr->setRequestedFrames(f.burst);
             if(strcmp(par("schedPolicy").stringValue(), "DM") == 0) {

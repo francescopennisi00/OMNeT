@@ -48,6 +48,7 @@ void TrafficGen::handleMessage(cMessage *msg) {
     emit(sigFLR, (double)rxLost/(double)(rxLost+rxTot));
 
     simtime_t delay = simTime()-pkt->getGenTime();
+    EV_DEBUG <<"e2eDelay: " << delay <<endl;
     emit(sigE2eDelay, delay);
 
     totBit += pkt->getBitLength();

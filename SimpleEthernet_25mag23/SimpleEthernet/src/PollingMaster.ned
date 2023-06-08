@@ -4,7 +4,7 @@ simple PollingMaster
 {
     parameters:
         object flowTable = default(FlowTableParameters { flows: [] });
-        string schedPolicy @enum("EDF","DM","FIFO") = default("DM");
+        string schedPolicy @enum("EDF","DM","FIFO") = default("FIFO");
         double trxTimer @unit(s) = default(1ms);
         @display("i=block/cogwheel");
         
