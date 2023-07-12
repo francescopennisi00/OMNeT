@@ -57,6 +57,7 @@ void TrafficGen::handleMessage(cMessage *msg) {
 
     if(pkt->getLastBurstPacket()) {
         delay = simTime()-pkt->getGenTime();
+        EV_DEBUG << getFullPath() << " -- BurstE2EDelay --" << delay <<endl;
         emit(sigBurstE2eDelay, delay);
     }
 

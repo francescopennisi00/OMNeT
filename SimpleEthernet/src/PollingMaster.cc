@@ -97,5 +97,5 @@ int PollingMaster::poll_queue_comp(cObject *a, cObject *b) {
     PollingRequest *ta = check_and_cast<PollingRequest *>(a);
     PollingRequest *tb = check_and_cast<PollingRequest *>(b);
 
-    return (tb->getPriority()-ta->getPriority()); //L'abbiamo rivalutata ed è corretta
+    return (ta->getPriority()-tb->getPriority()); //L'abbiamo rivalutata ed è corretta
 }
