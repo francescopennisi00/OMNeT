@@ -44,12 +44,14 @@ void EthernetPhy::handleMessage(cMessage *msg) {
     }
 
     /** Frame arrivata dalla rete */
-    double ber = 0;
+    double ber = 0.000000000001;
     if (dblrand() < 1.0 - pow(1.0 - ber, (double)frame->getBitLength())) {
+        EV_DEBUG << getFullPath() << " - FRAME SCARTATA" <<endl;
         delete frame;
     } else {
         send(frame,"upperLayerOut");
     }
+
     /*
     if(frame->hasBitError() == false) {
         send(frame, "upperLayerOut");
@@ -57,6 +59,7 @@ void EthernetPhy::handleMessage(cMessage *msg) {
         delete frame;
     }
     */
+
 }
 
 void EthernetPhy::checkAndTransmit() {
@@ -65,7 +68,7 @@ void EthernetPhy::checkAndTransmit() {
         emit(sigQueueLen, txQueue.getLength());
         cMessage *txtimer = new cMessage("TxTimer");
         double txt = (double)frame->getBitLength()/datarate;
-        EV_DEBUG << "Txt: " << txt << " - Byte: " << frame->getByteLength() << endl;
+        EV_DEBUG << getParentModule()->getFullPath() << " -- Txt: " << txt << " - Byte: " << frame->getByteLength() << endl;
         scheduleAt(simTime()+SimTime(txt), txtimer);
         txtimer->setControlInfo(frame);
         txState = TX_TX_STATE;

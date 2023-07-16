@@ -14,8 +14,8 @@ simple TrafficGen {
     	@signal[BurstE2eDelay];
     	@signal[Throughput];
     	@signal[FLR];
-    	@statistic[E2eDelay](record=vector);
-    	@statistic[BurstE2eDelay](record=vector);
+    	@statistic[E2eDelay](record=vector, max, min);
+    	@statistic[BurstE2eDelay](record=vector, max, min);
     	@statistic[Throughput](record=vector, last);
     	@statistic[FLR](record=vector, last);
     

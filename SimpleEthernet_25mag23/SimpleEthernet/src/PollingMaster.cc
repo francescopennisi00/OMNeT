@@ -27,7 +27,7 @@ void PollingMaster::handleMessage(cMessage *msg) {
             int i = msg->getKind();
             EV_DEBUG <<"Stampa i: " <<i<<endl;
             FlowTableEntry f = flowTable->getFlows(i);
-            EV_DEBUG <<" Stampa f: " << f.addr <<endl;
+            EV_DEBUG <<" Stampa f (indirizzo sorgente a cui e' rivolta la pollRequest): " << f.addr <<endl;
             pr->setFlow(f.flow.c_str());
             pr->setRequestedFrames(f.burst);
             if(strcmp(par("schedPolicy").stringValue(), "DM") == 0) {
@@ -46,7 +46,7 @@ void PollingMaster::handleMessage(cMessage *msg) {
             scheduleAt(simTime()+f.period, msg);
             return;
         } else if(strcmp(msg->getName(), "TrxTimer") == 0) {
-            EV_INFO << "Transazione non completata in tempo" << endl;
+            EV_INFO << "Transazione numero " << trxno << " non completata in tempo" << endl;
             ongoingTransaction = false;
             sendNextPollRequest();
             return;
@@ -55,7 +55,11 @@ void PollingMaster::handleMessage(cMessage *msg) {
 
     PollingData *pd = dynamic_cast<PollingData *>(msg);
     if(pd != nullptr) {
+        EV_DEBUG << "Ricevuto polling data numero " << pd->getKind() << endl;
+        EV_DEBUG << "numero di transazione corrente = " << trxno << endl;
+        EV_DEBUG << "numero di transazione polling data ricevuto = " << pd->getTrxno() << endl;
         if(pd->getTrxno() != trxno) {
+            EV_DEBUG << "Pacchetto arrivato fuori tempo massimo!" << " diretto a " << pd->getDestination() << endl;
             error("Pacchetto arrivato fuori tempo massimo!");
         }
         emit(sigTrxTime, simTime()-txTime);
@@ -81,6 +85,7 @@ void PollingMaster::sendNextPollRequest() {
         ongoingTransaction = true;
         PollingRequest *pr = check_and_cast<PollingRequest *>(pollQueue.pop());
         trxno++;
+        EV_DEBUG << "Inizio nuova transazione: trxno = " << trxno << endl;
         pr->setTrxno(trxno);
         txTime = simTime();
         send(pr, "lowerLayerOut");
@@ -92,5 +97,5 @@ int PollingMaster::poll_queue_comp(cObject *a, cObject *b) {
     PollingRequest *ta = check_and_cast<PollingRequest *>(a);
     PollingRequest *tb = check_and_cast<PollingRequest *>(b);
 
-    return (tb->getPriority()-ta->getPriority()); //L'abbiamo rivalutata ed è corretta
+    return (ta->getPriority()-tb->getPriority()); //L'abbiamo rivalutata ed è corretta
 }

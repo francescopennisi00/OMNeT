@@ -41,7 +41,7 @@ void EthernetDatalink::handleMessage(cMessage *msg)
         return;
     }
 
-    EV_DEBUG << "Ricevuta frame da: " << et->getSrc() << " di dim: "
+    EV_DEBUG << srcName << ": -- Ricevuta frame da: " << et->getSrc() << " di dim: "
             << et->getByteLength() << " bytes" << endl;
     cPacket *rxpkt = et->decapsulate();
     delete et;

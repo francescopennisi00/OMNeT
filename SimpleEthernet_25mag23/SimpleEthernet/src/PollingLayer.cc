@@ -40,9 +40,11 @@ void PollingLayer::handleMessage(cMessage *msg) {
         for(int i=0; i<numframe && (!appTxQueue.isEmpty()); i++) {
             PollingData *pkt = check_and_cast<PollingData *>(appTxQueue.pop());
             pkt->setTrxno(req->getTrxno());
+            pkt->setKind(i);  //aggiunto per scopi di debug
             if(i == (numframe-1)) pkt->setLast(true);
             emit(sigQueueLen, appTxQueue.getLength());
             send(pkt, "lowerLayerOut");
+            EV_DEBUG << getFullPath() << " -- Inviata polling data all'interfaccia Ethernet" << endl;
         }
 
         delete req;
